@@ -1,0 +1,240 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Chrimata | Financial markets demystified!</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
+    <script type="text/javascript" src="//widget.coindesk.com/bpiticker/coindesk-widget.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{% static 'chrimata_app/css/styles.css' %}" >
+    <link rel="stylesheet" href="{% static 'chrimata_app/css/dashboard.css' %}">
+    <script src="https://use.typekit.net/iii7xtz.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $.get("http://api.eia.gov/series/?api_key=e4119e96e24c0a2e9e16bbb16f3d596e&series_id=STEO.NGHHMCF.A", function(res){
+            console.log(res);
+                var html_str="";
+                for (var i=0; i<6; i++){
+                    html_str += " " + " " + res.series[0].data[i][0] + " $" + res.series[0].data[i][1] + "<br>";
+                    $('#price_history').html(html_str);
+                }
+            }, 'json');
+            return false;
+            });
+
+        $(document).ready(function(){
+            var data_arr = [['Year','Natural Gas Price']];
+            $.get("https://www.quandl.com/api/v3/datasets/WGC/GOLD_DAILY_USD.json?api_key=VzZzw2s9FYGh3ampr5mg", function(res){
+                var arr = res.dataset['data'];
+                for (var i=0; i<7200; i+= 261){
+                    // x = res.dataset['data'][i][0];
+                    y = res.dataset['data'][i][1];
+                    x = "";
+                    for (var j=0; j<4; j++){
+
+                        x += res.dataset['data'][i][0][j];
+                    }
+                    z = parseInt(x)
+                    console.log(z)
+                    data_arr.push([x,y]); //push x for year as string, push z for year as integer
+                }
+                console.log(res.dataset['data'][0][0], "data array", data_arr);
+                var html_str="";
+                html_str += "<h2>" + res.dataset['name'] + "</h2>"
+                for (var i=0; i<11; i++){
+                    html_str += "<p>Daily Closing Price: $" + res.dataset['data'][i][1] + "</p><p>As of: " + res.dataset['data'][i][0] + "</p><hr>"
+                }
+                html_str += "<p>Last updated at: " + res.dataset['refreshed_at'] + "</p>";
+                $('#info').html(html_str);
+            }, 'json');
+
+            // return false;
+
+
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable(data_arr);
+
+                var options = {
+                  title: "Historical Price of Natural Gas (as of today's approximate date of each year shown)",
+                  curveType: 'function',
+                  legend: { position: 'bottom' }
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById('curve_chart2'));
+
+                chart.draw(data, options);
+              }
+          });
+    </script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Natural Gas Price'],
+          ['1990',  1.7492833333],
+          ['1991',  1.5327533333],
+          ['1992',  1.8265883333],
+          ['1993',  2.1802166667],
+          ['1994',  1.97568],
+          ['1995',  1.7322066667],
+          ['1996',  2.8310966667],
+          ['1997', 2.5648469167],
+          ['1998', 2.1599169167],
+          ['1999', 2.3321893333],
+          ['2000', 4.421034],
+          ['2001', 4.0719245],
+          ['2002', 3.4502354167],
+          ['2003', 5.64449375],
+          ['2004', 6.052716],
+          ['2005', 9.058736],
+          ['2006', 6.9316326667],
+          ['2007', 7.164352],
+          ['2008', 9.1003325833],
+          ['2009', 4.0466145833],
+          ['2010', 4.48849775],
+          ['2011', 4.087489],
+          ['2012', 2.8202875],
+          ['2013', 3.831356],
+          ['2014', 4.533232],
+          ['2015', 2.715622],
+          ['2016', 2.566068],
+        ]);
+
+        var options = {
+          title: "Historical Price of Natural Gas (as of today's approximate date of each year shown)",
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/dashboard">Chrimata</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+            <li><a href="/logout">Logout</a>
+          </ul>
+          <!-- <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form> -->
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/markets">Markets </a></li>
+              <li><a href="/stocks">Stocks</a></li>
+            <li class="active"><a href="/commodities">Commodities<span class="sr-only">(current)</span></a></li>
+              <ul>
+                <li><a href="/gold">Gold</a></li></li>
+                <li><a href="/corn">Corn</a></li></li>
+                <li><a href="/natural_gas">Natural Gas</a></li></li>
+              </ul>
+            <li><a href="/cryptocurrencies">Cryptocurrencies</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="#">Reports</a></li>
+            <li><a href="#">Analytics</a></li>
+            <li><a href="#">Export</a></li>
+          </ul>
+
+          <div id="coindesk-widget" data-size="mpu" data-align="left"></div>
+
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">Natural Gas</h1>
+          <p>Natural gas is used extensively throughout the U.S. to heat homes, and also has important applications in commercial and industrial settings. It is similar to what is referred to as biogas, which is methane produced from the breakdown of organic matter. Because it is a fossil fuel, it contains many secondary products that must be filtered out of the methane to render it commercially viable. Ethane, propane, butane, helium and hydrogen sulfide are removed and are considered a secondary income source for refiners.</p>
+
+          <p>Once considered an ineffective byproduct of oil production, natural gas is steadily finding a foothold in today's world. Economical, environmentally friendly and efficient, natural gas is the cleanest-burning fossil fuel, and technologies are improving the way it is captured, transported and distributed.</p>
+
+          <p>According to statistics published in 2009 by the Federal Energy Regulatory Commission, 96% of the world's natural gas reserves reside outside of the U.S., yet 25% of the country's energy comes from natural gas. (Find out how to stay on top of data reports that could cause volatility in these markets.</p>
+
+          <h2>Price of Natural Gas  $3.52 cents per British Thermal Unit</h2>
+
+          <div class="info_box">
+            <div id='price_history'></div>
+          </div>
+
+            <div class="charts">
+              <div class="graph">
+                <div id="curve_chart" style="width: 900px; height: 500px"></div>
+                <img src='https://www.uniongas.com/-/media/aboutus/Top5Benefits_NaturalGas-2.jpg?la=en&hash=408D53B4438FD40BFA60031F8B6B1EBA47A43EDF'/>
+              </div>
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/-njmj0diWu8" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <!-- <script src="../../assets/js/vendor/holder.min.js"></script> -->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

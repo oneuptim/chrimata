@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Chrimata Dashboard</title>
+    </head>
+    <body>
+        <a href="/index">Markets</a> | <a href="/logout">Logout</a>
+        <h2>{{request.session.active_user.alias}}'s Dashboard</h2>
+        <h3>Favorites:</h3>
+        {% for fav in favorites_list %}
+            <h4>{{ fav.investment.investment_name}} - {{ fav.investment.investment_info}}</h4>
+            <p>Total Gain Loss (Timeline 5years?): {{ fav.investment.total_gain_loss}}</p>
+            <p>Total Volatility: {{ fav.investment.total_volatility }}</p>
+            <p>Minimum Required Investment: {{ fav.investment.min_investment}}</p>
+            <p><button><a href="/remove_favorite/{{fav.investment_id}}">Remove from my Favorites</a></button></p>
+        {% endfor %}
+        <hr>
+        <h3>All Other Investments (click button to add to your favorites):</h3>
+        {% for i in investments_list %}
+            <p><a href="/gold_detail_view">{{i.investment_name}}</a>: {{ i.investment_info}} <button><a href="/add_favorite/{{i.id}}">Add to Your Favorites</a></button></p>
+
+        {% endfor %}
+        <hr>
+        <h3>Display Favorites Analysis here:</h3>
+        5 year total porfolio gain/loss:
+        {% for fav in favorites_list %}
+            {{ fav.investment.total_gain_loss}} +
+        {% endfor %}
+    </body>
+</html>

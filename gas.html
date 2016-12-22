@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Chrimata Index</title>
+        <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
+        <script type="text/javascript">
+        $(document).ready(function(){
+            $.get("http://api.eia.gov/series/?api_key=e4119e96e24c0a2e9e16bbb16f3d596e&series_id=STEO.NGHHMCF.A", function(res){
+                var html_str="";
+                var arr = res.series[0]['data']
+                for (var i=0; i<arr.length; i++){
+                    html_str += "<p>"+res.series[0]['data'][i][0] + " " + res.series[0]['data'][i][1]+"</p>";
+                    $('#info').html(html_str);
+                }
+            }, 'json');
+            return false;
+            });
+
+        </script>
+    </head>
+    <body>
+        <h1>Hello</h1>
+        <div id="info">
+        </div>
+    </body>
+</html>

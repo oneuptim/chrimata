@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Chrimata Index</title>
+        <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
+        <script type="text/javascript">
+        $(document).ready(function(){
+            $.get("https://www.quandl.com/api/v3/datasets/WGC/GOLD_DAILY_USD.json?api_key=VzZzw2s9FYGh3ampr5mg", function(res){
+            console.log(res);
+                var html_str="";
+                var arr = res.dataset['data'];
+                for (var i=0; i<17; i++){
+                    html_str += "Stock********* " + res.dataset['data'][i][0] + " " + res.dataset['data'][i][1];
+                    alert(html_str);
+                    $('#info').html(html_str);
+                }
+            }, 'json');
+            return false;
+            });
+
+        </script>
+    </head>
+    <body>
+        <h1>Hello</h1>
+        <div id="info">
+
+        </div>
+    </body>
+</html>
+
+# arr = ['AAPL', 'NFLX', 'GOOG']

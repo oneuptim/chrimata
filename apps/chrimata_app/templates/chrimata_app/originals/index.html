@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Chrimata Index</title>
+        <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
+        <script type="text/javascript">
+        $(document).ready(function(){
+            $.get("https://api.coinmarketcap.com/v1/global/", function(res){
+                var html_str="";
+                html_str += "Total Market Cap (USD): " + res.total_market_cap_usd;
+                $('#info').html(html_str);
+            }, 'json');
+            return false;
+            });
+
+        </script>
+    </head>
+    <body>
+        {% if request.session.active_user %}
+            <h1>Welcome back, {{ request.session.active_user.alias}}!</h1>
+            <button><a href="/dashboard">{{ request.session.active_user.alias}}'s Dashboard</a></button>
+            <button><a href="/logout">Logout</a></button>
+        {% endif %}
+        {% if not request.session.active_user %}
+            <h1>Welcome, new knowledge-seeker!</h1>
+            <button><a href="/login_and_reg">Login or Register New User</a></button>
+        {% endif %}
+        {% if messages %}
+            <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+            {{ message }}
+            </li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        <div id="info">
+
+        </div>
+        <button><a href="/gold_detail_view">View Gold Info</a></button>
+    </body>
+</html>

@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+        var chart_arr = [];
+        $.get("https://www.quandl.com/api/v3/datasets/WGC/GOLD_DAILY_USD.json?api_key=VzZzw2s9FYGh3ampr5mg", function(res){
+            var arr = res.dataset['data'];
+            for (var i=0; i<17; i++){
+                var data_arr = []
+                x = res.dataset['data'][i][0];
+                y = res.dataset['data'][i][1];
+                data_arr.push("[x,y]");
+                chart_arr.push(data_arr)
+            }
+        }, 'json');
+        console.log("data array", data_ar)
+        // console.log(chart_arr,"Chart array")
+        function drawChart() {
+            var x = [['Price', 'Date'],]
+            for (var i=0; i<chart_arr.length; i++){
+                data.push([res.dataset['data'][i][0],res.dataset['data'][i][1]])
+            }
+            console.log(x, "data")
+            var data = google.visualization.arrayToDataTable()[
+            ['Price', 'Date'],
+            [1125.7, '2016-12-20'],
+            [1155.7, '2016-13-20'],
+            [1105.7, '2016-14-20']]
+            };
+
+            var options = {
+              title: 'Lengths of dinosaurs, in meters',
+              legend: { position: 'none' },
+            };
+
+            var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
+            chart.draw(data, options);
+
+
+        return false;
+    });
+
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>

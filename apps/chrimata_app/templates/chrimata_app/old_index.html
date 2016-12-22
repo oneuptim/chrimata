@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Chrimata Index</title>
+        <link rel="stylesheet" href="/css/styles.css">
+        <script type="text/javascript" src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
+        <script>
+            $(document).ready(function(){
+                $('#stocks').click(function(){
+                    $('.stocks').show();
+                    return false;
+                });
+
+                $('#stocks_min').click(function(){
+                    $('.stocks').hide();
+                    return false;
+                });
+                $('#commodities').click(function(){
+                    $('.commodities').show();
+                    return false;
+                });
+
+                $('#commodities_min').click(function(){
+                    $('.commodities').hide();
+                    return false;
+                });
+                $('#cryptocurrencies').click(function(){
+                    $('.cryptocurrencies').show();
+                    return false;
+                });
+
+                $('#cryptocurrencies_min').click(function(){
+                    $('.cryptocurrencies').hide();
+                    return false;
+                });
+                $('#markets').click(function(){
+                    $('.markets').show();
+                    return false;
+                });
+
+                $('#markets_min').click(function(){
+                    $('.markets').hide();
+                    return false;
+                });
+            });
+        </script>
+    </head>
+    <body>
+      <div id="wrapper">
+
+        <a href='' id='markets'>Markets</a>
+        <a href='' id='stocks'>Stocks</a>
+        <a href='' id='commodities'>Commodities</a>
+        <a href='' id='cryptocurrencies'>Cryptocurrencies</a>
+
+        <div class='markets' style="display:none">
+            <h2>What is a Market? A Broad Overview.</h2>
+            <p>A market is a medium that allows buyers and sellers of a specific good or service to interact in order to facilitate an exchange. This type of market may either be a physical marketplace where people come together to exchange goods and services in person, as in a bazaar or shopping center, or a virtual market wherein buyers and sellers do not interact, as in an online market.</p>
+            <p>Click on a Market below to learn more.</p>
+
+            <div class='crypto'>
+            <a href='/crypto' id='crypto'>Crypto</a>
+            </div>
+
+            <div class='real_estate'>
+            <a href='/real_estate' id='real_estate'>Real Estate</a>
+            </div>
+
+            <div class='real_estate'>
+            <a href='/real_estate' id='real_estate'>Bonds</a>
+            </div>
+
+
+            <a href='' id='markets_min'>Hide</a>
+        </div>
+
+
+        <div class='stocks' style="display:none">
+            <h2>What is a 'Stock Market'</h2>
+            <p>The stock market is the market in which shares of publicly held companies are issued and traded either through exchanges or over-the-counter markets. Also known as the equity market, the stock market is one of the most vital components of a free-market economy, as it provides companies with access to capital in exchange for giving investors a slice of ownership in the company. The stock market makes it possible to grow small initial sums of money into large ones, and to become wealthy without taking the risk of starting a business or making the sacrifices that often accompany a high-paying career.
+            </p>
+            <p>Click on a Stock to learn more</p>
+            <div class='apple'>
+            <a href='/apple' id='apple'>Apple</a>
+            </div>
+
+            <div class='google'>
+            <a href='/google' id='google'>Google</a>
+            </div>
+
+            <div class='berkshire_hathaway'>
+            <a href='/berkshire_hathaway' id='berkshire_hathaway'>Berkshire Hathaway</a>
+            </div>
+            <br>
+            <a href='' id='stocks_min'>Hide</a>
+
+        </div>
+
+
+        <div class='commodities' style="display:none">
+            <h2>What is a Commodity?</h2>
+            <p>A commodity is a basic good used in commerce that is interchangeable with other commodities of the same type. Commonly traded commodities include gold, beef, oil, lumber and natural gas. Additional examples of commodities include iron ore, crude oil, salt, sugar, tea, coffee beans, copper, rice, wheat, silver, and platinum.</p>
+            <p>Click on a Commodity to learn more</p>
+
+            <div class='gold'>
+            <a href='/gold' id='gold'>Gold</a>
+            </div>
+
+            <div class='natural_gas'>
+            <a href='/natural_gas' id='natural_gas'>Natural Gas</a>
+            </div>
+
+            <div class='corn'>
+            <a href='/corn' id='corn'>Corn</a>
+            </div>
+
+            <a href='' id='commodities_min'>Hide</a>
+        </div>
+
+
+        <div class='cryptocurrencies' style="display:none">
+            <p>Info On CryptoCurrencies</p>
+            <h2>What are CryptoCurrencies?</h2>
+            <p>A cryptocurrency is a medium of exchange like normal currencies such as USD, but designed for the purpose of exchanging digital information through a process made possible by certain principles of cryptography. Cryptography is used to secure the transactions and to control the creation of new coins.</p>
+            <p>Click on a CryptoCurrency to learn more</p>
+
+            <div class='bitcoin'>
+            <a href='/bitcoin' id='bitcoin'>Bitcoin</a>
+            </div>
+
+            <div class='ethereum'>
+            <a href='/ethereum' id='ethereum'>Ethereum</a>
+            </div>
+
+            <div class='monero'>
+            <a href='/monero' id='monero'>Monero</a>
+            </div>
+
+            <a href='' id='cryptocurrencies_min'>Hide</a>
+        </div>
+
+      </div>
+    </body>
+</html>

@@ -1,0 +1,50 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Chrimata | Financial markets demystified!</title>
+    <link rel="stylesheet" href="{% static 'chrimata_app/css/login.css' %}">
+    <script src="https://use.typekit.net/iii7xtz.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div class="logo">Chrimata </div>
+      <div class="left-col">
+      <!-- For checking messages with flash -->
+      <div class="alert-error">
+      <h1>New? Register</h1>
+      {% if messages %}
+          <ul class="messages">
+          {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+          {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+          {{ message }}
+          </li>
+          {% endfor %}
+          </ul>
+      {% endif %}
+      </div>
+      <form action="/add_user" method="post">
+          {% csrf_token %}
+          <input type="text" name="name" placeholder="First Name">
+          <input type="text" name="alias" placeholder="Alias Name">
+          <input type="email" name="email" placeholder="Email">
+          <input type="password" name="password" placeholder="Password (*Password should be at least 8 characters)">
+          <input type="password" name="confirm_password" placeholder="Confirm Password"></p>
+          <p><input type="date" name="birthday" placeholder="Date of Birth"></p>
+          <p><input type="submit" value="Register"></p>
+      </form>
+      </div>
+      <div class="right-col">
+          <h1>Login</h1>
+          <form action="/login" method="post">
+              {% csrf_token %}
+              <input type="email" name="login_email" placeholder="Email">
+              <input type="password" name="login_password" placeholder="Password">
+              <input type="submit" value="Login">
+          </form>
+      </div>
+    </body>
+</html>
